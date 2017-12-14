@@ -1,0 +1,184 @@
+<?xml version='1.0'?>
+<Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
+   <Product Id='434f2dfc-a6fb-4702-bcd6-17b347b3cec6' Name='Service Manager SMLets Module' Language='1033' 
+            Version='{BUILDVERSION}' Manufacturer='James W. Truher' UpgradeCode='7cf051aa-2dc8-40a3-ad46-5fea16a7cce1' >
+<?if $(env.SMLETS64)=1 ?>
+      <Package Description='This is the SMLets Module for Service Manager 2012' Platform="x64"
+               Comments='This is the SMLets Module for Service Manager 2012'
+               Manufacturer='James W. Truher' InstallerVersion='300' Compressed='yes' />
+<?else ?>
+      <Package Description='This is the SMLets Module for Service Manager 2012'
+               Comments='This is the SMLets Module for Service Manager 2012'
+               Manufacturer='James W. Truher' InstallerVersion='300' Compressed='yes' />
+<?endif?>
+    <UIRef Id='WixUI_FeatureTree' />
+
+      <Media Id='1' Cabinet='product.cab' EmbedCab='yes' />
+<?if $(env.SMLETS64)=1?>
+<?define ProgramFilesFolder="ProgramFiles64Folder"?>
+<?else?>
+<?define ProgramFilesFolder="ProgramFiles"?>
+<?endif?>
+
+<Directory Id="TARGETDIR" Name="SourceDir">
+ <Directory Id="$(var.ProgramFilesFolder)" >
+  <Directory Id='CommonFiles' Name='Common Files'>
+   <Directory Id='MyDir' Name='SMLets'>
+    <Component Id='MainModule' Guid='fd3061e1-e95e-4ef0-b982-0d33aedb26b3'>
+     <Environment Id="PsModulePath"
+          Action="set"
+          Name="PSModulePath"
+          Part="last"
+          Permanent="no"
+          System="yes"
+          Value="[$(var.ProgramFilesFolder)]Common Files"
+          />
+     <File Id='about_SMLets.help.txt' Name='about_SMLets.help.txt' DiskId='1' Source='../about_SMLets.help.txt' />
+     <File Id='ReadMe.txt' Name='ReadMe.txt' DiskId='1' Source='../ReadMe.txt' />
+     <File Id='SMLets.Module.dll' Name='SMLets.Module.dll' DiskId='1' Source='../SMLets.Module.dll' />
+     <File Id='SMLets.Module.dll_Help.xml' Name='SMLets.Module.dll-Help.xml' DiskId='1' Source='../SMLets.Module.dll-Help.xml' />
+     <File Id='SMLets.Module.pdb' Name='SMLets.Module.pdb' DiskId='1' Source='../SMLets.Module.pdb' />
+     <File Id='SMLets.psd1' Name='SMLets.psd1' DiskId='1' Source='../SMLets.psd1' />
+     <File Id='SMLets.psm1' Name='SMLets.psm1' DiskId='1' Source='../SMLets.psm1' />
+     <File Id='SMLets.Types.ps1xml' Name='SMLets.Types.ps1xml' DiskId='1' Source='../SMLets.Types.ps1xml' />
+     <File Id='SMLets.Format.ps1xml' Name='SMLets.Format.ps1xml' DiskId='1' Source='../SMLets.Format.ps1xml' />
+    </Component>
+
+<Directory Id='Test' Name='Test'>
+ <Component Id='TestDir' Guid='9f8694cc-7040-4947-b9f2-660231a94a78'>
+  <File Id='test_Common.ps1' Name='Common.ps1' DiskId='1' Source='../test/Common.ps1' />
+  <File Id='test_Document.rtf' Name='Document.rtf' DiskId='1' Source='../test/Document.rtf' />
+  <File Id='test_EnumMP.xml' Name='EnumMP.xml' DiskId='1' Source='../test/EnumMP.xml' />
+  <File Id='test_get_IncidentPriority.ps1' Name='get-IncidentPriority.ps1' DiskId='1' Source='../test/get-IncidentPriority.ps1' />
+  <File Id='test_initialize_knowledgearticle.ps1' Name='initialize-knowledgearticle.ps1' DiskId='1' Source='../test/initialize-knowledgearticle.ps1' />
+  <File Id='test_Invoke_Test.ps1' Name='Invoke-Test.ps1' DiskId='1' Source='../test/Invoke-Test.ps1' />
+  <File Id='test_ReadMe.txt' Name='ReadMe.txt' DiskId='1' Source='../test/ReadMe.txt' />
+  <File Id='test_test_newproblem.ps1' Name='test-newproblem.ps1' DiskId='1' Source='../test/test-newproblem.ps1' />
+  <File Id='test_test_newprojectionobject.ps1' Name='test-newprojectionobject.ps1' DiskId='1' Source='../test/test-newprojectionobject.ps1' />
+  <File Id='test_test_objecttemplate.ps1' Name='test-objecttemplate.ps1' DiskId='1' Source='../test/test-objecttemplate.ps1' />
+  <File Id='test_Test_SortParameter.ps1' Name='Test-SortParameter.ps1' DiskId='1' Source='../test/Test-SortParameter.ps1' />
+  <File Id='test_Test_soro.ps1' Name='Test-soro.ps1' DiskId='1' Source='../test/Test-soro.ps1' />
+  <File Id='test_test001.ps1' Name='test001.ps1' DiskId='1' Source='../test/test001.ps1' />
+  <File Id='test_test002.ps1' Name='test002.ps1' DiskId='1' Source='../test/test002.ps1' />
+  <File Id='test_test003.ps1' Name='test003.ps1' DiskId='1' Source='../test/test003.ps1' />
+  <File Id='test_test004.ps1' Name='test004.ps1' DiskId='1' Source='../test/test004.ps1' />
+  <File Id='test_test005.ps1' Name='test005.ps1' DiskId='1' Source='../test/test005.ps1' />
+  <File Id='test_test006.ps1' Name='test006.ps1' DiskId='1' Source='../test/test006.ps1' />
+  <File Id='test_test007.ps1' Name='test007.ps1' DiskId='1' Source='../test/test007.ps1' />
+  <File Id='test_test008.ps1' Name='test008.ps1' DiskId='1' Source='../test/test008.ps1' />
+  <File Id='test_test009.ps1' Name='test009.ps1' DiskId='1' Source='../test/test009.ps1' />
+  <File Id='test_test010.ps1' Name='test010.ps1' DiskId='1' Source='../test/test010.ps1' />
+  <File Id='test_test011.ps1' Name='test011.ps1' DiskId='1' Source='../test/test011.ps1' />
+ </Component>
+</Directory>
+<Directory Id='Scripts' Name='Scripts'>
+ <Component Id='ScriptsDir' Guid='fe656927-93fa-410d-a8cf-ce251871fcaf'>
+  <File Id='Scripts_display_richtext.ps1' Name='display-richtext.ps1' DiskId='1' Source='../Scripts/display-richtext.ps1' />
+  <File Id='Scripts_Export_BundleContents.ps1' Name='Export-BundleContents.ps1' DiskId='1' Source='../Scripts/Export-BundleContents.ps1' />
+  <File Id='Scripts_Export_KnowledgeArticle.ps1' Name='Export-KnowledgeArticle.ps1' DiskId='1' Source='../Scripts/Export-KnowledgeArticle.ps1' />
+  <File Id='Scripts_Get_EnumStack.ps1' Name='Get-EnumStack.ps1' DiskId='1' Source='../Scripts/Get-EnumStack.ps1' />
+  <File Id='Scripts_get_lorem.ps1' Name='get-lorem.ps1' DiskId='1' Source='../Scripts/get-lorem.ps1' />
+  <File Id='Scripts_get_mpbinfo.ps1' Name='get-mpbinfo.ps1' DiskId='1' Source='../Scripts/get-mpbinfo.ps1' />
+  <File Id='Scripts_get_scsmdeleteditem.ps1' Name='get-scsmdeleteditem.ps1' DiskId='1' Source='../Scripts/get-scsmdeleteditem.ps1' />
+  <File Id='Scripts_get_SCSMProjectionComponent.ps1' Name='get-SCSMProjectionComponent.ps1' DiskId='1' Source='../Scripts/get-SCSMProjectionComponent.ps1' />
+  <File Id='Scripts_get_SCSMSubscription.ps1' Name='get-SCSMSubscription.ps1' DiskId='1' Source='../Scripts/get-SCSMSubscription.ps1' />
+  <File Id='Scripts_get_scsmuser.ps1' Name='get-scsmuser.ps1' DiskId='1' Source='../Scripts/get-scsmuser.ps1' />
+  <File Id='Scripts_Get_SCSMWorkflow.ps1' Name='Get-SCSMWorkflow.ps1' DiskId='1' Source='../Scripts/Get-SCSMWorkflow.ps1' />
+  <File Id='Scripts_get_singlepropertycriteria.ps1' Name='get-singlepropertycriteria.ps1' DiskId='1' Source='../Scripts/get-singlepropertycriteria.ps1' />
+  <File Id='Scripts_Get_SMConfig.ps1' Name='Get-SMConfig.ps1' DiskId='1' Source='../Scripts/Get-SMConfig.ps1' />
+  <File Id='Scripts_get_smproperty.ps1' Name='get-smproperty.ps1' DiskId='1' Source='../Scripts/get-smproperty.ps1' />
+  <File Id='Scripts_get_smtask.ps1' Name='get-smtask.ps1' DiskId='1' Source='../Scripts/get-smtask.ps1' />
+  <File Id='Scripts_get_smtaskresult.ps1' Name='get-smtaskresult.ps1' DiskId='1' Source='../Scripts/get-smtaskresult.ps1' />
+  <File Id='Scripts_get_taskparameters.ps1' Name='get-taskparameters.ps1' DiskId='1' Source='../Scripts/get-taskparameters.ps1' />
+  <File Id='Scripts_new_criteria.ps1' Name='new-criteria.ps1' DiskId='1' Source='../Scripts/new-criteria.ps1' />
+  <File Id='Scripts_New_MPBFile.ps1' Name='New-MPBFile.ps1' DiskId='1' Source='../Scripts/New-MPBFile.ps1' />
+  <File Id='Scripts_objectcriteria.ps1' Name='objectcriteria.ps1' DiskId='1' Source='../Scripts/objectcriteria.ps1' />
+  <File Id='Scripts_Restore_SCSMDeletedItem.ps1' Name='Restore-SCSMDeletedItem.ps1' DiskId='1' Source='../Scripts/Restore-SCSMDeletedItem.ps1' />
+  <File Id='Scripts_Set_IncidentUser.ps1' Name='Set-IncidentUser.ps1' DiskId='1' Source='../Scripts/Set-IncidentUser.ps1' />
+  <File Id='Scripts_Set_LastModified.ps1' Name='Set-LastModified.ps1' DiskId='1' Source='../Scripts/Set-LastModified.ps1' />
+  <File Id='Scripts_test_relationshipobject.ps1' Name='test-relationshipobject.ps1' DiskId='1' Source='../Scripts/test-relationshipobject.ps1' />
+  <File Id='Scripts_Test_SCManagementPack.ps1' Name='Test-SCManagementPack.ps1' DiskId='1' Source='../Scripts/Test-SCManagementPack.ps1' />
+  <File Id='Scripts_Update_MPVersion_ps1' Name='Update-MPVersion.ps1' DiskId='1' Source='../Scripts/Update-MPVersion.ps1' />
+  <File Id='Scripts_get_ROQuestions_ps1' Name='get-ROQuestions.ps1' DiskId='1' Source='../Scripts/get-ROQuestions.ps1' />
+  <File Id='Scripts_test_SupportGroupConfig_ps1' Name='test-SupportGroupConfig.ps1' DiskId='1' Source='../Scripts/test-SupportGroupConfig.ps1' />  
+ </Component>
+</Directory>
+
+<Directory Id='DataGen' Name='DataGen'>
+ <Component Id='DataGenDir' Guid='d2a8969d-4950-4261-8329-ad5a81a2229f'>
+  <File Id='datagen_Common.ps1' Name='Common.ps1' DiskId='1' Source='../DataGen/Common.ps1' />
+  <File Id='datagen_compit.ps1' Name='compit.ps1' DiskId='1' Source='../DataGen/compit.ps1' />
+  <File Id='datagen_Document.rtf' Name='Document.rtf' DiskId='1' Source='../DataGen/Document.rtf' />
+  <File Id='datagen_get_componentTree.ps1' Name='get-componentTree.ps1' DiskId='1' Source='../DataGen/get-componentTree.ps1' />
+  <File Id='datagen_Initialize_Change.ps1' Name='Initialize-Change.ps1' DiskId='1' Source='../DataGen/Initialize-Change.ps1' />
+  <File Id='datagen_Initialize_ChangeRequest.ps1' Name='Initialize-ChangeRequest.ps1' DiskId='1' Source='../DataGen/Initialize-ChangeRequest.ps1' />
+  <File Id='datagen_Initialize_ComputerInstance.ps1' Name='Initialize-ComputerInstance.ps1' DiskId='1' Source='../DataGen/Initialize-ComputerInstance.ps1' />
+  <File Id='datagen_initialize_ComputerProjection.ps1' Name='initialize-ComputerProjection.ps1' DiskId='1' Source='../DataGen/initialize-ComputerProjection.ps1' />
+  <File Id='datagen_Initialize_ComputerProjectionPeripherals.ps1' Name='Initialize-ComputerProjectionPeripherals.ps1' DiskId='1' Source='../DataGen/Initialize-ComputerProjectionPeripherals.ps1' />
+  <File Id='datagen_Initialize_DemoData.ps1' Name='Initialize-DemoData.ps1' DiskId='1' Source='../DataGen/Initialize-DemoData.ps1' />
+  <File Id='datagen_initialize_incident.ps1' Name='initialize-incident.ps1' DiskId='1' Source='../DataGen/initialize-incident.ps1' />
+  <File Id='datagen_initialize_group.ps1' Name='initialize-group.ps1' DiskId='1' Source='../DataGen/initialize-group.ps1' />
+  <File Id='datagen_initialize_knowledgearticle.ps1' Name='initialize-knowledgearticle.ps1' DiskId='1' Source='../DataGen/initialize-knowledgearticle.ps1' />
+  <File Id='datagen_Initialize_Printer.ps1' Name='Initialize-Printer.ps1' DiskId='1' Source='../DataGen/Initialize-Printer.ps1' />
+  <File Id='datagen_Initialize_Problem.ps1' Name='Initialize-Problem.ps1' DiskId='1' Source='../DataGen/Initialize-Problem.ps1' />
+  <File Id='datagen_initialize_queue.ps1' Name='initialize-queue.ps1' DiskId='1' Source='../DataGen/initialize-queue.ps1' />
+  <File Id='datagen_Initialize_ReleaseRecord.ps1' Name='Initialize-ReleaseRecord.ps1' DiskId='1' Source='../DataGen/Initialize-ReleaseRecord.ps1' />
+  <File Id='datagen_Initialize_Service.ps1' Name='Initialize-Service.ps1' DiskId='1' Source='../DataGen/Initialize-Service.ps1' />
+  <File Id='datagen_initialize_SoftwareItem.ps1' Name='initialize-SoftwareItem.ps1' DiskId='1' Source='../DataGen/initialize-SoftwareItem.ps1' />
+  <File Id='datagen_initialize_SoftwareUpdate.ps1' Name='initialize-SoftwareUpdate.ps1' DiskId='1' Source='../DataGen/initialize-SoftwareUpdate.ps1' />
+  <File Id='datagen_Initialize_User.ps1' Name='Initialize-User.ps1' DiskId='1' Source='../DataGen/Initialize-User.ps1' />
+  <File Id='datagen_Initialize_RequestFromRO.ps1' Name='Initialize-RequestFromRO.ps1' DiskId='1' Source='../DataGen/Initialize-RequestFromRO.ps1' />
+  <File Id='datagen_New_ReleaseRecord.ps1' Name='New-ReleaseRecord.ps1' DiskId='1' Source='../DataGen/New-ReleaseRecord.ps1' />
+  <File Id='datagen_Remove_DemoData.ps1' Name='Remove-DemoData.ps1' DiskId='1' Source='../DataGen/Remove-DemoData.ps1' />
+  <File Id='datagen_set_billabletime.ps1' Name='set-billabletime.ps1' DiskId='1' Source='../DataGen/set-billabletime.ps1' />
+  <File Id='datagen_values.ps1' Name='values.ps1' DiskId='1' Source='../DataGen/values.ps1' />
+ </Component>
+</Directory>
+
+
+<Directory Id='Src' Name='Src'>
+<Component Id='SrcDir' Guid='ad65f362-b908-4df8-bd94-0a4037109177'>
+<File Id='Announcement.cs' Name='Announcement.cs' DiskId='1' Source='../Announcement.cs' />
+<File Id='Categories.cs' Name='Categories.cs' DiskId='1' Source='../Categories.cs' />
+<File Id='DataWarehouse.cs' Name='DataWarehouse.cs' DiskId='1' Source='../DataWarehouse.cs' />
+<File Id='EntityObjects.cs' Name='EntityObjects.cs' DiskId='1' Source='../EntityObjects.cs' />
+<File Id='EntityTypes.cs' Name='EntityTypes.cs' DiskId='1' Source='../EntityTypes.cs' />
+<File Id='Helper.cs' Name='Helper.cs' DiskId='1' Source='../Helper.cs' />
+<File Id='Identifiers.cs' Name='Identifiers.cs' DiskId='1' Source='../Identifiers.cs' />
+<File Id='Incident.cs' Name='Incident.cs' DiskId='1' Source='../Incident.cs' />
+<File Id='ManagementPack.cs' Name='ManagementPack.cs' DiskId='1' Source='../ManagementPack.cs' />
+<File Id='Monitoring.cs' Name='Monitoring.cs' DiskId='1' Source='../Monitoring.cs' />
+<File Id='Offering.cs' Name='Offering.cs' DiskId='1' Source='../Offering.cs' />
+<File Id='Presentation.cs' Name='Presentation.cs' DiskId='1' Source='../Presentation.cs' />
+<File Id='Resources.cs' Name='Resources.cs' DiskId='1' Source='../Resources.cs' />
+<File Id='Security.cs' Name='Security.cs' DiskId='1' Source='../Security.cs' />
+<File Id='Session.cs' Name='Session.cs' DiskId='1' Source='../Session.cs' />
+<File Id='subscription.cs' Name='subscription.cs' DiskId='1' Source='../subscription.cs' />
+<File Id='Templates.cs' Name='Templates.cs' DiskId='1' Source='../Templates.cs' />
+<File Id='Build.ps1' Name='Build.ps1' DiskId='1' Source='../Build.ps1' />
+<File Id='SMLETSVERSION.cs' Name='SMLETSVERSION.cs' DiskId='1' Source='../SMLETSVERSION.cs' />
+<File Id='SMLets.csproj' Name='SMLets.csproj' DiskId='1' Source='../SMLets.csproj' />
+<File Id='Help' Name='SMLets.dll-Help.xml' DiskId='1' Source='../SMLets.dll-Help.xml' />
+</Component>
+</Directory>
+
+   </Directory>
+  </Directory>
+ </Directory>
+</Directory>
+<Feature Id='base' Title='Service Manager SMLets base module' Level='1' Display='expand'>
+ <ComponentRef Id='MainModule' />
+ <ComponentRef Id='ScriptsDir' />
+ <Feature Id='test' Title='Test scripts' InstallDefault='followParent' Level='1'>
+  <ComponentRef Id='TestDir' />
+ </Feature>
+ <Feature Id='datagen' Title='DataGen scripts' InstallDefault='followParent' Level='1'>
+  <ComponentRef Id='DataGenDir' />
+ </Feature>
+</Feature>
+<Feature Id='sources' Title='Source Files' Level='1'>
+ <ComponentRef Id='SrcDir' />
+</Feature>
+</Product>
+</Wix>
+
